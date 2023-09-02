@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // Check if a JSON file was uploaded correctly
 
 if (isset($_FILES['jsonFile']) && $_FILES['jsonFile']['error'] === UPLOAD_ERR_OK) {
@@ -31,12 +31,16 @@ if (isset($_FILES['jsonFile']) && $_FILES['jsonFile']['error'] === UPLOAD_ERR_OK
 
            
         } 
-         echo "Data uploaded successfully.";
+         
+         $_SESSION['status']= "Data uploaded successfully.";
+         header('location:filter_ajax.php');
         
     } else {
-        echo "The uploaded file is not a valid JSON file.";
+        $_SESSION['failed']= "The uploaded file is not a valid JSON file.";
+        header('location:jason.php');
     }
 } else {
-    echo "Error uploading the JSON file.";
+    $_SESSION['failed']= "Error uploading the JSON file.";
+    header('location:jason.php');
 }
 ?>
