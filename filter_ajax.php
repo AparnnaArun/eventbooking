@@ -1,4 +1,4 @@
-<?php
+  <?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -8,6 +8,12 @@ session_start();
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<style type="text/css">
+  .totalfee{
+    font-size: 20px;
+  }
+</style>
 </head>
 <body>
     <div class="container">
@@ -38,15 +44,15 @@ unset ($_SESSION['failed']);
     <form id="filter-form">
   <div class="row">
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="Employee Name" id="employee" name="employee">
+      <input type="text" class="form-control" placeholder="Employee Name" id="employee_name" name="employee_name">
       
     </div>
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="Event Name" id="event" name="event">
+      <input type="text" class="form-control" placeholder="Event Name" id="event_name" name="event_name">
          
     </div>
     <div class="col-md-3">
-      <input type="date" class="form-control" placeholder="" id="date" name="date">
+      <input type="text" class="form-control datepicker" placeholder="Date" id="event_date" name="event_date" >
          
     </div>
     <div class="col-md-3">
@@ -82,9 +88,17 @@ unset ($_SESSION['failed']);
     <div id="total-price"></div>
 </div>
  </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
-     
+
+            // JQuery datepicker
+      $( function() {
+    $( ".datepicker" ).datepicker(
+        { dateFormat: 'yy-mm-dd' });
+  } );
+      // AJAX LOAD
  $(document).ready(function () {
 
   loadAllData(); // Initial load
@@ -93,8 +107,11 @@ unset ($_SESSION['failed']);
             $("#filter-form").submit(function (e) {
                 e.preventDefault();
                 filterData();
+                //alert("hai");
             });
         });
+
+    // LOAD ALL DATA
 
         function loadAllData() {
             $.ajax({
@@ -105,14 +122,16 @@ unset ($_SESSION['failed']);
                 },
             });
         }
-
+   // LOAD FILTERED DATA
         function filterData() {
             var formData = $("#filter-form").serialize();
+             //console.log(formData);
             $.ajax({
                 url: "filter_data.php", 
                 method: "POST",
                 data: formData,
                 success: function (data) {
+                    //alert(data);
                     $("#booking-table").html(data);
                 },
             });
