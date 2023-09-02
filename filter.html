@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Booking System</title>
+</head>
+<body>
+    <h1>Event Booking System</h1>
+    <form action="filter.php" method="post">
+        <label for="employee_name">Employee Name:</label>
+        <input type="text" name="employee_name" id="employee_name">
+
+        <label for="event_name">Event Name:</label>
+        <input type="text" name="event_name" id="event_name">
+
+        <label for="event_date">Event Date:</label>
+        <input type="date" name="event_date" id="event_date">
+
+        <input type="submit" value="Filter">
+    </form>
+
+    <h2>Filtered Results</h2>
+    <table>
+        <!-- Table headers here -->
+    </table>
+
+    <p>Total Price: <span id="total_price">0</span></p>
+
+    <script>
+        // JavaScript code to handle form submission and update the table
+    </script>
+</body>
+</html>
